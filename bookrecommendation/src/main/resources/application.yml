@@ -1,0 +1,22 @@
+micronaut:
+    application:
+        name: bookrecommendation
+    server:
+        port: 8080
+
+    router.static.resources:
+        enabled: true
+        mapping: /**
+        paths:
+          - classpath:static
+consul:
+  client:
+    registration:
+      enabled: true
+      retryCount: 5
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
+
+endpoints:
+  health:
+    enabled: true
+    sensitive: false

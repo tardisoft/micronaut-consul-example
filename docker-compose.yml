@@ -1,0 +1,88 @@
+version: '3'
+
+services:
+
+  bookrecommendation:
+    image: bookrecommendation:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./bookrecommendation
+    ports:
+      - 8080:8080
+    networks:
+      - consul-demo
+    environment:
+      - CONSUL_HOST=consul-server-bootstrap
+    depends_on:
+      - consul-server-bootstrap
+
+  bookinventory-1: &bookinventory
+    image: bookinventory:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./bookinventory
+    ports:
+      - 8082:8082
+    networks:
+      - consul-demo
+    environment:
+      - CONSUL_HOST=consul-server-bootstrap
+    depends_on:
+      - consul-server-bootstrap
+      - consul-server-1
+
+  bookinventory-2:
+    <<: *bookinventory
+    ports:
+      - 8181:8081
+
+  bookcatalogue-1: &bookcatalog
+    image: bookcatalogue:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./bookcatalogue
+    networks:
+      - consul-demo
+    ports:
+      - 8081:8081
+    environment:
+      - CONSUL_HOST=consul-server-bootstrap
+    depends_on:
+      - consul-server-bootstrap
+      - consul-server-1
+
+  bookcatalogue-2:
+    <<: *bookcatalog
+    ports:
+      - 8281:8082
+
+  consul-agent-1: &consul-agent
+    image: consul:latest
+    networks:
+      - consul-demo
+    command: "agent -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-agent-2:
+    <<: *consul-agent
+
+  consul-agent-3:
+    <<: *consul-agent
+
+  consul-server-1: &consul-server
+    <<: *consul-agent
+    command: "agent -server -retry-join consul-server-bootstrap -client 0.0.0.0"
+
+  consul-server-2:
+    <<: *consul-server
+
+  consul-server-bootstrap:
+    <<: *consul-agent
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600"
+      - "8600:8600/udp"
+    command: "agent -server -bootstrap-expect 3 -ui -client 0.0.0.0"
+
+networks:
+  consul-demo:

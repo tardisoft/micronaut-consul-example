@@ -1,0 +1,17 @@
+micronaut:
+    application:
+        name: bookinventory
+    server:
+        port: 8082
+consul:
+  client:
+    registration:
+      enabled: true
+      retryCount: 5
+      failFast: false
+    defaultZone: "${CONSUL_HOST:localhost}:${CONSUL_PORT:8500}"
+
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
