@@ -1,8 +1,10 @@
 micronaut:
-    application:
-        name: bookcatalogue
-    server:
-        port: 8081
+  application:
+    name: bookcatalogue
+    instance:
+      id: ${random.integer}
+  server:
+    port: 8081
 
 consul:
   client:
