@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {tap} from "rxjs/operators";
 
 export interface Book {
@@ -27,6 +27,8 @@ export class BookService {
         return this.http.get<Book[]>("/books").pipe(
             tap(results => {
                 results.sort((x, y) => x.name < y.name ? -1 : 1)
+            }, e => {
+                return of({'name': JSON.stringify(e)} as Book)
             })
         );
     }

@@ -8,6 +8,8 @@ import {Observable} from "rxjs";
 })
 export class AppComponent implements OnInit {
 
+    loading: boolean = true;
+
     constructor(private bookService: BookService) {
     }
 

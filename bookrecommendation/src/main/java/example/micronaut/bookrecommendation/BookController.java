@@ -4,6 +4,8 @@ import example.micronaut.bookrecommendation.catalogue.BookCatalogueClient;
 import example.micronaut.bookrecommendation.inventory.BookInventoryClient;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
+import io.micronaut.retry.annotation.CircuitBreaker;
+import io.micronaut.retry.annotation.Fallback;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
@@ -14,13 +16,14 @@ public class BookController {
     private final BookInventoryClient bookInventoryOperations;
 
     public BookController(BookCatalogueClient bookCatalogueOperations,
-                          BookInventoryClient bookInventoryOperations) { // <2>
+                          BookInventoryClient bookInventoryOperations) {
         this.bookCatalogueOperations = bookCatalogueOperations;
         this.bookInventoryOperations = bookInventoryOperations;
     }
 
 
     @Get()
+    @CircuitBreaker
     public Flowable<Book> books() {
         return bookCatalogueOperations.findAll()
                 .flatMapMaybe(b -> bookInventoryOperations.stock(b.getIsbn())

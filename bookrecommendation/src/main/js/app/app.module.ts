@@ -1,9 +1,9 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import {AppComponent} from './app.component';
-import {AppRoutingModule} from "./app.routes";
 import {HttpClientModule} from "@angular/common/http";
 import {BookService} from "./book.service";
+import {CommonModule} from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -11,8 +11,8 @@ import {BookService} from "./book.service";
     ],
     imports: [
         BrowserModule,
-        HttpClientModule,
-        AppRoutingModule
+        CommonModule,
+        HttpClientModule
     ],
     providers: [
         BookService

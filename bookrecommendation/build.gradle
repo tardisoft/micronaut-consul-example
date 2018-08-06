@@ -70,16 +70,13 @@ compileTestJava.options.compilerArgs += '-parameters'
 
 apply from: "${rootProject.projectDir}/gradle/testVerbose.gradle"
 
-//task webpack(type: NpmTask) {
-//    args = ["install", "webpack-cli"]
-//}
 
-task webpack(type: YarnTask, dependsOn: yarn) {
-    args = ['build-micronaut']
+task webpack(type: NpmTask, dependsOn: npmInstall) {
+    args = ['run', 'build-micronaut']
     // 'build-spring' is script in your package.json you want to run
 }
 
-processResources.dependsOn 'npmInstall', "webpack"
+processResources.dependsOn "webpack"
 
 node {
     // Version of node to use.

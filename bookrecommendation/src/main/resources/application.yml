@@ -5,6 +5,9 @@ micronaut:
       id: ${random.shortuuid}
   server:
     port: 8080
+  http:
+    client:
+      readTimeout: 2s
 
   router.static.resources:
     enabled: true

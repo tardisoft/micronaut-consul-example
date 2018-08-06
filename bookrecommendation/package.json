@@ -87,8 +87,6 @@
     "zone.js": "^0.8.26"
   },
   "scripts": {
-    "watch": "webpack -d --watch",
-    "dev-build": "webpack -d --display-modules",
-    "build-micronaut": "webpack-cli -d --display-modules -p"
+    "build-micronaut": "webpack-cli -d"
   }
 }
