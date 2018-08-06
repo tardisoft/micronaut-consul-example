@@ -46,6 +46,8 @@ dependencies {
     //tag::validation[]
     compile "io.micronaut:validation"
     compile "io.micronaut.configuration:hibernate-validator"
+    compile "io.micronaut.configuration:micrometer-core"
+    compile "io.micronaut:management"
     //end::validation[]
 
     //tag::discoveryclient[]

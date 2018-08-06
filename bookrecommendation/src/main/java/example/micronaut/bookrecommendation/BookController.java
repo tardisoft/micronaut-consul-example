@@ -1,5 +1,7 @@
 package example.micronaut.bookrecommendation;
 
+import example.micronaut.bookrecommendation.catalogue.BookCatalogueClient;
+import example.micronaut.bookrecommendation.inventory.BookInventoryClient;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.reactivex.Flowable;
@@ -18,8 +20,20 @@ public class BookController {
     }
 
 
-    @Get("/")
-    public Flowable<Resource<Book>> books() {
+    @Get()
+    public Flowable<Book> books() {
+        return bookCatalogueOperations.findAll()
+                .flatMapMaybe(b -> bookInventoryOperations.stock(b.getIsbn())
+                        .defaultIfEmpty(0)
+                        .map(stock -> {
+                            b.setStock(stock);
+                            return b;
+                        })
+                ).map(book -> book);
+    }
+
+    @Get("/resource")
+    public Flowable<Resource<Book>> bookResources() {
         return bookCatalogueOperations.findAll()
                 .flatMapMaybe(b -> bookInventoryOperations.stock(b.getIsbn())
                         .defaultIfEmpty(0)

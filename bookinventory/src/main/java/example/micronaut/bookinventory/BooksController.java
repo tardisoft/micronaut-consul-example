@@ -5,12 +5,10 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
-import io.micronaut.validation.Validated;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Optional;
 
-@Validated
 @Controller("/books")
 public class BooksController {
 

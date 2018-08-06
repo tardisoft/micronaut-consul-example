@@ -1,5 +1,6 @@
 package example.micronaut.bookrecommendation;
 
+import example.micronaut.bookrecommendation.inventory.BookInventoryClient;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.env.Environment;
 import io.micronaut.retry.annotation.Fallback;

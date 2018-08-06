@@ -2,7 +2,7 @@ micronaut:
   application:
     name: bookrecommendation
     instance:
-      id: ${random.integer}
+      id: ${random.shortuuid}
   server:
     port: 8080
 

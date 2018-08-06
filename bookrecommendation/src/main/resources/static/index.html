@@ -10,71 +10,11 @@
     <link href="/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" href="/font-awesome.min.css" crossorigin="anonymous">
     <style>
-        /* FontAwesome for working BootSnippet :> */
-        @import url('/font-awesome.min.css');
-
         #bookSection {
             background: #eee !important;
         }
-
-        .btn-primary:hover,
-        .btn-primary:focus {
-            background-color: #108d6f;
-            border-color: #108d6f;
-            box-shadow: none;
-            outline: none;
-        }
-
-        .btn-primary {
-            color: #fff;
-            background-color: #007b5e;
-            border-color: #007b5e;
-        }
-
-        section {
-            padding: 60px 0;
-        }
-
-        section .section-title {
-            text-align: center;
-            color: #007b5e;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-        }
-
-        #team .card {
-            border: none;
-            background: #ffffff;
-        }
-
-        .frontside {
-            position: relative;
-            -webkit-transform: rotateY(0deg);
-            -ms-transform: rotateY(0deg);
-            z-index: 2;
-            margin-bottom: 30px;
-        }
-
-        .frontside .card,
-        .backside .card {
-            min-height: 312px;
-            min-width: 300px;
-        }
-
-        .backside .card a {
-            font-size: 18px;
-            color: #007b5e !important;
-        }
-
-        .frontside .card .card-title,
-        .backside .card .card-title {
-            color: #007b5e !important;
-        }
-
-        .frontside .card .card-body img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+        .card {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -83,88 +23,14 @@
 <section id="bookSection" class="pb-5">
     <div class="container">
         <h5 class="section-title h1">Books</h5>
-        <span id="books"></span>
+        <app-root></app-root>
     </div>
 </section>
 
 
 <script src="/jquery-3.1.1.slim.min.js" crossorigin="anonymous"></script>
-<script src="/tether.min.js" crossorigin="anonymous"></script>
 <script src="/bootstrap.min.js" crossorigin="anonymous"></script>
-<script src="/react.js"></script>
-<script src="/react-dom.js"></script>
-<script src="/babel.min.js"></script>
-<script type="text/babel">
-    class Books extends React.Component {
-        constructor(props) {
-            super(props);
-            this.state = {
-                error: null,
-                isLoaded: false,
-                books: []
-            };
-        }
-
-        componentDidMount() {
-            fetch("/books")
-                .then(res => res.json())
-                .then(
-                    (result) => {
-                        this.setState({
-                            isLoaded: true,
-                            books: result
-                        });
-                    },
-                    (error) => {
-                        this.setState({
-                            isLoaded: true,
-                            error
-                        });
-                    }
-                )
-        }
-
-        render() {
-            const {error, isLoaded, books} = this.state;
-            if (error) {
-                return <div>Error: {error.message}</div>;
-            } else if (!isLoaded) {
-                return <div>Loading... <i className="fa fa-spin fa-book"></i></div>;
-            } else {
-                return (
-                    <div className="row">
-                        {[].concat(books)
-                            .sort((a, b) => a.content.name > b.content.name)
-                            .map((book, i) => (
-                                <div key={i} className="col-xs-12 col-sm-6 col-md-4">
-                                    <div className="image-flip">
-                                        <div className="mainflip">
-                                            <div className="frontside">
-                                                <div className="card">
-                                                    <div className="card-body text-center">
-                                                        <h4 className="card-title">{book.content.name}</h4>
-                                                        <p className="card-text">
-                                                            isbn: {book.content.isbn}<br/>
-                                                            name: {book.content.name}<br/>
-                                                            stock: {book.content.stock}<br/>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                    </div>
-                );
-            }
-        }
-    }
-
-    ReactDOM.render(<Books/>,
-        document.getElementById('books'));
-
-</script>
+<script src="/main.js" crossorigin="anonymous"></script>
 
 </body>
 </html>

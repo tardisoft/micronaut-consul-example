@@ -1,11 +1,7 @@
-#tag::port[]
 micronaut:
     server:
-        port: -1 # <1>
-#end::port[]
-#tag::consul[]
+        port: -1
 consul:
     client:
         registration:
             enabled: false
-#end::consul[]

@@ -1,0 +1,13 @@
+<div class="row" *ngIf="books$ | async as books; else loading;">
+    <div class="col-sm-4" *ngFor="let book of books">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{book.name}}</h5>
+                <p class="card-text">isbn: {{book.isbn}}<br/>
+                    name: {{book.name}}<br/>
+                    stock: {{book.stock}}<br/></p>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #loading><i class="fa-3x fa fa-spinner fa-spin" style="font-size:70px; color: #fe821d"></i></ng-template>

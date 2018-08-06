@@ -1,5 +1,6 @@
 package example.micronaut.bookrecommendation;
 
+import example.micronaut.bookrecommendation.catalogue.BookCatalogueClient;
 import io.micronaut.context.annotation.Requires;
 import io.micronaut.context.env.Environment;
 import io.micronaut.retry.annotation.Fallback;
@@ -11,7 +12,7 @@ import javax.inject.Singleton;
 @Requires(env = Environment.TEST)
 @Fallback
 @Singleton
-public class BookCatalogueClientStub implements BookCatalogueClient {
+public class BookCatalogueClientFallback implements BookCatalogueClient {
 
     @Override
     public Flowable<Book> findAll() {
